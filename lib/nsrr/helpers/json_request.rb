@@ -19,7 +19,6 @@ module Nsrr
       end
 
       def get
-        puts "Accessing: #{@url.to_s}"
         req = Net::HTTP::Get.new(@url.path)
         response = @http.start do |http|
           http.request(req)
