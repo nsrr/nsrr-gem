@@ -52,17 +52,17 @@ module Nsrr
         download_request.get
 
         if download_request.error.to_s == ''
-          puts "    download".colorize( :green ) + " #{@name}"
+          puts "    download".colorize(:green) + " #{@name}"
           download_request.file_size
         else
-          puts "      failed".colorize( :red ) + " #{@name}"
+          puts "      failed".colorize(:red) + " #{@name}"
           puts "             #{download_request.error}"
           'fail'
         end
       end
 
       def skip
-        puts "   identical".colorize( :blue ) + " #{self.name}"
+        puts "   identical".colorize(:light_blue) + " #{self.name}"
         'skip'
       end
 

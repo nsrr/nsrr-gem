@@ -77,7 +77,7 @@ module Nsrr
         puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".colorize(:white) + ", " +
              "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".colorize(:green) + ", " +
              "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".colorize(:green) + ", " +
-             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".colorize(:blue) + ", " +
+             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".colorize(:light_blue) + ", " +
              "#{@files_failed} file#{"s" if @files_failed != 1} failed".colorize(:red) + "\n\n"
         nil
       end
@@ -107,7 +107,7 @@ module Nsrr
       end
 
       def create_folder(folder)
-        puts "      create".colorize( :white ) + " #{folder}"
+        puts "      create".colorize(:white) + " #{folder}"
         FileUtils.mkdir_p folder
         @folders_created += 1
       end
