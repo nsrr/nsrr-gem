@@ -14,7 +14,7 @@ You must have [Ruby 2.0+ installed](https://github.com/remomueller/documentation
 
 Install it yourself as:
 
-    $ gem install nsrr
+    $ gem install nsrr --pre --no-ri --no-rdoc
 
 Or add this line to your application's Gemfile:
 
