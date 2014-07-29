@@ -26,6 +26,46 @@ Or install it yourself as:
 
 ## Usage
 
+### Download files from a dataset
+
+**Note:** You can type `Ctrl-C` to pause downloads and resume later by retyping the command.
+
+Download an entire dataset.
+
+```console
+$ nsrr download shhs
+```
+
+Download a subfolder of a dataset.
+
+```console
+$ nsrr download shhs/forms
+```
+
+Download a folder without downloading contents of subfolders. By default, when not specified, the command will recursively download all contents of the specified folder and subfolders.
+
+```console
+$ nsrr download shhs/datasets --shallow
+```
+
+Continue an in progress download and only compare file sizes. By default, when a downloaded file already exists, the command will do an MD5 file comparison to verify the file is identical to the one on the server. The MD5 comparison is exact, but can be slow on older machines. If you want a quick check, you can tell the command to simply compare the file sizes of the local file and the file on the server which speeds up the comparison process, however it may in some cases be inaccurate.
+
+```console
+$ nsrr download shhs --fast
+```
+
+Redownload all files and overwrite any existing downloaded files.
+
+```console
+$ nsrr download shhs --fresh
+```
+
+You can combine the file check flag with the folder depth flag as well.
+
+```console
+$ nsrr download shhs/datasets --shallow --fast
+```
+
 ### Open the console and download entire datasets
 
 ```console

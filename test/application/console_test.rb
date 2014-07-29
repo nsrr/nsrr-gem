@@ -2,7 +2,7 @@ require 'test_helper'
 require 'test_helpers/capture'
 
 module ApplicationTests
-  class HelpTest < Minitest::Test
+  class ConsoleTest < Minitest::Test
 
     include TestHelpers::Capture
 

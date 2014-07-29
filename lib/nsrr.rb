@@ -1,7 +1,10 @@
+require 'colorize'
+
 require "nsrr/version"
 
 Nsrr::COMMANDS = {
   'c' => :console,
+  'd' => :download,
   'v' => :version
 }
 
@@ -13,23 +16,11 @@ module Nsrr
   def self.console(argv)
     require 'nsrr/commands/console'
     Nsrr::Commands::Console.start(argv)
-    # console = Nsrr::Commands::Console.new(argv)
-    # console.start
-    # `#{File.expand_path('../', __FILE__)}/nsrr/commands/console2`
+  end
 
-
-    # require 'irb'
-    # require 'irb/completion'
-    # IRB.setup nil
-    # IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
-    # require 'irb/ext/multi-irb'
-    # IRB.irb nil, self
-
-    # require 'irb'
-    # ARGV.clear
-    # @a = "hello"
-    # IRB.start
-
+  def self.download(argv)
+    require 'nsrr/commands/download'
+    Nsrr::Commands::Download.run(argv)
   end
 
   def self.help(argv)
@@ -40,12 +31,16 @@ Usage: nsrr COMMAND [ARGS]
 The most common nsrr commands are:
   [c]onsole         Load an interactive console to access
                     and download datasets and files
+  [d]ownload        Download all or some files in a DATASET
   [v]ersion         Returns the version of nsrr gem
 
 Commands can be referenced by the first letter:
   Ex: `nsrr v`, for version
 
 EOT
+    puts "Read more on the download command here:"
+    puts "  " + "https://github.com/nsrr/nsrr-gem".colorize( :blue ).on_white.underline
+    puts "\n"
   end
 
   def self.version(argv)

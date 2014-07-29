@@ -1,6 +1,8 @@
 ## 0.1.0
 
 ### Enhancements
+- Added a `nsrr download` command that allows users to download partial or entire datasets
+  - Example: `nsrr download shhs`
 - Added a `nsrr console` command that allows users to access and download datasets and files
   - Datasets can be loaded in the console environment
     - `d = Dataset.find 'shhs'`

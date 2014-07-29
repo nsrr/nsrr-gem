@@ -1,5 +1,6 @@
 require 'colorize'
 require 'fileutils'
+require 'irb'
 
 require 'nsrr/helpers/constants'
 require 'nsrr/helpers/hash_helper'
@@ -19,6 +20,7 @@ module Nsrr
         end
       end
 
+      attr_accessor :download_token
       attr_reader :slug, :name
 
       def initialize(json = {})
@@ -73,7 +75,7 @@ module Nsrr
 
         @downloaded_megabytes = @downloaded_bytes / (1024 * 1024)
 
-        puts "\nFinished in #{Time.now - @start_time} seconds."
+        puts "\nFinished in #{Time.now - @start_time} seconds." if @start_time
         puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".colorize(:white) + ", " +
              "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".colorize(:green) + ", " +
              "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".colorize(:green) + ", " +
@@ -113,9 +115,9 @@ module Nsrr
       end
 
       def set_download_token
-        puts  "             Get your token here: " + "https://sleepdata.org/token".colorize( :blue ).on_white.underline
+        puts  "             Get your token here: " + "#{Nsrr::WEBSITE}/token".colorize( :blue ).on_white.underline
         print "Please enter your download token: "
-        @download_token = gets.chomp
+        @download_token =  STDIN.gets.chomp
       end
 
     end
