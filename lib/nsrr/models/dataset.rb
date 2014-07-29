@@ -86,7 +86,7 @@ module Nsrr
 
       def download_helper(path, options)
         current_folder = ::File.join(self.slug.to_s, path.to_s)
-        create_folder(current_folder)
+        create_folder(current_folder) if self.files(path).count > 0
 
         self.files(path).select{|f| f.is_file}.each do |file|
           result = file.download(options[:method], current_folder, @download_token)
