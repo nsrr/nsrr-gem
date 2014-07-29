@@ -113,7 +113,7 @@ module Nsrr
       end
 
       def set_download_token
-        puts  "             Get your token here: " + "https://sleepdata.org/token".colorize(:blue)
+        puts  "             Get your token here: " + "https://sleepdata.org/token".colorize( :blue ).on_white.underline
         print "Please enter your download token: "
         @download_token = gets.chomp
       end
