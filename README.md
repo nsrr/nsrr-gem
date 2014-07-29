@@ -8,7 +8,11 @@ The official ruby gem built to simplify file downloads and dataset integration t
 
 ## Prerequisites
 
-You must have [Ruby 2.0+ installed](https://github.com/remomueller/documentation/) on your system to use the NSRR gem.
+You must have **Ruby 2.0+ installed** on your system to use the NSRR gem.
+
+- [Install Ruby on Windows](http://rubyinstaller.org/)
+- [Install Ruby on Mac](https://github.com/remomueller/documentation/blob/master/macosx/140-install-ruby.md)
+- [Install Ruby on Linux (CentOS)](https://github.com/remomueller/documentation/blob/master/centos/140-install-ruby.md)
 
 ## Installation
 
