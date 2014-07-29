@@ -1,3 +1,4 @@
+require 'openssl'
 require 'net/http'
 require 'json'
 
@@ -15,7 +16,10 @@ module Nsrr
       def initialize(url)
         @url = URI.parse(url)
         @http = Net::HTTP.new(@url.host, @url.port)
-        @http.use_ssl = true if (@url.scheme == 'https')
+        if @url.scheme == 'https'
+          @http.use_ssl = true
+          @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
       end
 
       def get

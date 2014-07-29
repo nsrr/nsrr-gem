@@ -1,3 +1,4 @@
+require 'openssl'
 require 'net/http'
 require 'uri'
 
@@ -17,7 +18,10 @@ module Nsrr
           escaped_url = URI.escape(url)
           @url = URI.parse(escaped_url)
           @http = Net::HTTP.new(@url.host, @url.port)
-          @http.use_ssl = true if (@url.scheme == 'https')
+          if @url.scheme == 'https'
+            @http.use_ssl = true
+            @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          end
           @download_folder = download_folder
           @file_size = 0
         rescue => e
