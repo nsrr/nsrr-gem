@@ -12,7 +12,11 @@ You must have [Ruby 2.0+ installed](https://github.com/remomueller/documentation
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install it yourself as:
+
+    $ gem install nsrr
+
+Or add this line to your application's Gemfile:
 
     gem 'nsrr'
 
@@ -20,9 +24,6 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install nsrr
 
 ## Usage
 
