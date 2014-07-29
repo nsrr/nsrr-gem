@@ -16,7 +16,7 @@ module ApplicationTests
           Nsrr.launch ['download', 'wecare', '--token=abc123']
         end
 
-        assert_match "3 folders created", output
+        assert_match "1 folder created", output
         assert_match "0 files downloaded", output
         assert_match "0 MiBs downloaded", output
         assert_match "0 files skipped", output
