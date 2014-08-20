@@ -29,22 +29,30 @@ module Nsrr
         end
       end
 
+      # Writes file segments to disk immediately instead of storing in memory
       def get
-        req = Net::HTTP::Get.new(@url.path)
-        response = @http.start do |http|
-          http.request(req)
-        end
-        case response.code when '200'
-          ::File.open(@download_folder, 'wb') do |local_file|
-            local_file.write( response.body )
+        local_file = ::File.open(@download_folder, 'wb')
+        begin
+          partial = true
+          @http.request_get(@url.path) do |response|
+            case response.code when '200'
+              response.read_body do |segment|
+                local_file.write(segment)
+              end
+              @file_size = ::File.size(@download_folder)
+              partial = false
+            when '302'
+              @error = 'Token Not Authorized to Access Specified File'
+            else
+              @error = "#{response.code} #{response.class.name}"
+            end
           end
-          @file_size = ::File.size(@download_folder)
-        when '302'
-          @error = 'Token Not Authorized to Access Specified File'
-        else
-          @error = "#{response.code} #{response.class.name}"
+        ensure
+          local_file.close()
+          ::File.delete(@download_folder) if partial and ::File.exist?(@download_folder)
         end
       end
+
     end
   end
 end
