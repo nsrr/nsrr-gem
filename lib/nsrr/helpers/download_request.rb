@@ -47,6 +47,8 @@ module Nsrr
               @error = "#{response.code} #{response.class.name}"
             end
           end
+        rescue => e # Net::ReadTimeout, SocketError
+          @error = "(#{e.class}) #{e.message}"
         ensure
           local_file.close()
           ::File.delete(@download_folder) if partial and ::File.exist?(@download_folder)
