@@ -14,20 +14,27 @@ module Nsrr
       attr_reader :url
 
       def initialize(url)
-        @url = URI.parse(url)
-        @http = Net::HTTP.new(@url.host, @url.port)
-        if @url.scheme == 'https'
-          @http.use_ssl = true
-          @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        begin
+          @url = URI.parse(url)
+          @http = Net::HTTP.new(@url.host, @url.port)
+          if @url.scheme == 'https'
+            @http.use_ssl = true
+            @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          end
+        rescue
         end
       end
 
       def get
-        req = Net::HTTP::Get.new(@url.path)
-        response = @http.start do |http|
-          http.request(req)
+        begin
+          req = Net::HTTP::Get.new(@url.path)
+          response = @http.start do |http|
+            http.request(req)
+          end
+          JSON.parse(response.body)
+        rescue
+          nil
         end
-        JSON.parse(response.body) rescue nil
       end
     end
   end

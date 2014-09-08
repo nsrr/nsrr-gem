@@ -23,5 +23,6 @@
         - Downloads files in selected path folder and all subfolders
       - 'shallow'
         - Only downloads files in selected path folder
+- Added a `nsrr update` command the provides the user with information on how to update the nsrr gem
 - Added a `nsrr version` command the returns the current version of the nsrr gem
 - Added testing framework to more easily add new tests for new features

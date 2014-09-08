@@ -169,6 +169,14 @@ Finished in 2.384734 seconds.
 1 folder created, 0 files downloaded, 0 MiBs downloaded, 2 files skipped, 0 files failed
 ```
 
+### Update the NSRR gem
+
+To make sure you're using the latest stable version of the NSRR gem, you can run the following command:
+
+```
+nsrr update
+```
+
 ### Show the version of the NSRR gem
 
 ```

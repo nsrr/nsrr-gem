@@ -5,6 +5,7 @@ require "nsrr/version"
 Nsrr::COMMANDS = {
   'c' => :console,
   'd' => :download,
+  'u' => :update,
   'v' => :version
 }
 
@@ -23,6 +24,11 @@ module Nsrr
     Nsrr::Commands::Download.run(argv)
   end
 
+  def self.update(argv)
+    require 'nsrr/commands/update'
+    Nsrr::Commands::Update.start(argv)
+  end
+
   def self.help(argv)
     puts <<-EOT
 
@@ -32,6 +38,7 @@ The most common nsrr commands are:
   [c]onsole         Load an interactive console to access
                     and download datasets and files
   [d]ownload        Download all or some files in a DATASET
+  [u]pdate          Update the nsrr gem
   [v]ersion         Returns the version of nsrr gem
 
 Commands can be referenced by the first letter:
