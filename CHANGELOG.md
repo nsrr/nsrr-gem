@@ -1,4 +1,4 @@
-## 0.1.0
+## 0.1.0 (September 29, 2014)
 
 ### Enhancements
 - Added a `nsrr download` command that allows users to download partial or entire datasets

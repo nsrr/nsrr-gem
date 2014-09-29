@@ -18,7 +18,7 @@ You must have **Ruby 2.0+ installed** on your system to use the NSRR gem.
 
 Install it yourself as:
 
-    $ gem install nsrr --pre --no-ri --no-rdoc
+    $ gem install nsrr --no-ri --no-rdoc
 
 Or add this line to your application's Gemfile:
 
