@@ -1,5 +1,8 @@
 ## 0.1.1
 
+### Enhancements
+- Use of Ruby 2.1.3 is now recommended
+
 ## 0.1.0 (September 29, 2014)
 
 ### Enhancements
