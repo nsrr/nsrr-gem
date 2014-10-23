@@ -1,6 +1,7 @@
 require 'colorize'
 require 'fileutils'
 require 'irb'
+require 'io/console'
 
 require 'nsrr/helpers/constants'
 require 'nsrr/helpers/hash_helper'
@@ -117,7 +118,8 @@ module Nsrr
       def set_download_token
         puts  "             Get your token here: " + "#{Nsrr::WEBSITE}/token".colorize( :blue ).on_white.underline
         print "Please enter your download token: "
-        @download_token =  STDIN.gets.chomp
+        @download_token = STDIN.noecho(&:gets).chomp
+        puts ""
       end
 
     end
