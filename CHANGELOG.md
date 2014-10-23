@@ -1,4 +1,4 @@
-## 0.1.1
+## 0.1.1 (October 23, 2014)
 
 ### Enhancements
 - User token input is now hidden to prevent discovery of tokens in console history
