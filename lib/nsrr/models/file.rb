@@ -52,7 +52,8 @@ module Nsrr
       # If the second download and check fail, the file is marked as failed, and the downloader continues to the subsequent file.
       def force_download(path, token, method)
         download_folder = ::File.join(Dir.pwd, path.to_s, @name.to_s)
-        download_url = "#{Nsrr::WEBSITE}/datasets/#{@dataset_slug}/files/a/#{token}/m/nsrr-gem-v#{Nsrr::VERSION::STRING.gsub('.', '-')}/#{@file_path.to_s}"
+        auth_section = (token.to_s == '' ? '' : "/a/#{token}")
+        download_url = "#{Nsrr::WEBSITE}/datasets/#{@dataset_slug}/files#{auth_section}/m/nsrr-gem-v#{Nsrr::VERSION::STRING.gsub('.', '-')}/#{@file_path.to_s}"
         download_request = Nsrr::Helpers::DownloadRequest.new(download_url, download_folder)
         download_request.get
 
