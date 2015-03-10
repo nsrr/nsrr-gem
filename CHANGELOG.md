@@ -1,6 +1,8 @@
 ## 0.2.0
 
 ### Enhancements
+- The `nsrr download` command now allows users to download files from private datasets
+- The `nsrr download` command provides better feedback on the validity of the authorization token provided by the user
 - Use of Ruby 2.2.1 is now recommended
 
 ## 0.1.1 (October 23, 2014)

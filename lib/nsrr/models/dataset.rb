@@ -6,16 +6,18 @@ require 'io/console'
 require 'nsrr/helpers/constants'
 require 'nsrr/helpers/hash_helper'
 require 'nsrr/helpers/json_request'
+require 'nsrr/helpers/authorization'
 
 require 'nsrr/models/file'
 
 module Nsrr
   module Models
     class Dataset
-      def self.find(slug)
-        json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets/#{slug}.json")
+      def self.find(slug, token = nil)
+        auth_section = (token.to_s == '' ? '' : "/a/#{token}")
+        json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}#{auth_section}/datasets/#{slug}.json")
         if json
-          new(json)
+          new(json, token)
         else
           nil
         end
@@ -24,16 +26,17 @@ module Nsrr
       attr_accessor :download_token
       attr_reader :slug, :name
 
-      def initialize(json = {})
+      def initialize(json = {}, token = nil)
         @slug = json['slug']
         @name = json['name']
         @files = {}
-        @download_token = nil
+        @download_token = token
       end
 
       def files(path = nil)
         @files[path] ||= begin
-          json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets/#{@slug}/json_manifest/#{path}")
+          auth_section = (@download_token.to_s == '' ? '' : "/a/#{@download_token}" )
+          json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets/#{@slug}#{auth_section}/json_manifest/#{path}")
           (json || []).collect{|file_json| Nsrr::Models::File.new(file_json)}
         end
       end
@@ -61,10 +64,11 @@ module Nsrr
         @files_failed = 0
 
         begin
-          if @download_token.to_s == ''
-            puts "     File Integrity Check Method: " + options[:method].to_s.colorize(:white)
-            puts "                           Depth: " + options[:depth].to_s.colorize(:white)
-            set_download_token()
+          puts "           File Check: " + options[:method].to_s.colorize(:white)
+          puts "                Depth: " + options[:depth].to_s.colorize(:white)
+          puts ""
+          if @download_token == nil
+            @download_token = Nsrr::Helpers::Authorization.get_token(@download_token)
           end
 
           @start_time = Time.now
@@ -113,13 +117,6 @@ module Nsrr
         puts "      create".colorize(:white) + " #{folder}"
         FileUtils.mkdir_p folder
         @folders_created += 1
-      end
-
-      def set_download_token
-        puts  "             Get your token here: " + "#{Nsrr::WEBSITE}/token".colorize( :blue ).on_white.underline
-        print "Please enter your download token: "
-        @download_token = STDIN.noecho(&:gets).chomp
-        puts ""
       end
 
     end
