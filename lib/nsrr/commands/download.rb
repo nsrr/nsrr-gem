@@ -24,21 +24,25 @@ module Nsrr
 
       # Run with Authorization
       def run
-        if @dataset_slug == nil
-          puts "Please specify a dataset: " + "nsrr download DATASET".colorize(:white)
-          puts "Read more on the download command here:"
-          puts "  " + "https://github.com/nsrr/nsrr-gem".colorize( :blue ).on_white.underline
-        else
-          @token = Nsrr::Helpers::Authorization.get_token(@token) if @token.to_s == ''
-          @dataset = Dataset.find(@dataset_slug, @token)
-          if @dataset
-            @dataset.download(@folder, depth: @depth, method: @file_comparison)
+        begin
+          if @dataset_slug == nil
+            puts "Please specify a dataset: " + "nsrr download DATASET".colorize(:white)
+            puts "Read more on the download command here:"
+            puts "  " + "https://github.com/nsrr/nsrr-gem".colorize( :blue ).on_white.underline
           else
-            puts "\nThe dataset " + "#{@dataset_slug}".colorize(:white) + " was not found."
-            auth_section = (@token.to_s == '' ? '' : "/a/#{@token}" )
-            datasets = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}#{auth_section}/datasets.json")
-            puts "Did you mean one of: #{datasets.collect{|d| d['slug'].colorize(:white)}.sort.join(', ')}" if datasets and datasets.size > 0
+            @token = Nsrr::Helpers::Authorization.get_token(@token) if @token.to_s == ''
+            @dataset = Dataset.find(@dataset_slug, @token)
+            if @dataset
+              @dataset.download(@folder, depth: @depth, method: @file_comparison)
+            else
+              puts "\nThe dataset " + "#{@dataset_slug}".colorize(:white) + " was not found."
+              auth_section = (@token.to_s == '' ? '' : "/a/#{@token}" )
+              datasets = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}#{auth_section}/datasets.json")
+              puts "Did you mean one of: #{datasets.collect{|d| d['slug'].colorize(:white)}.sort.join(', ')}" if datasets and datasets.size > 0
+            end
           end
+        rescue Interrupt
+          puts "\nINTERRUPTED".colorize(:red)
         end
       end
 
