@@ -3,7 +3,7 @@
 ### Enhancements
 - The `nsrr download` command now allows users to download files from private datasets
 - The `nsrr download` command provides better feedback on the validity of the authorization token provided by the user
-- Use of Ruby 2.2.1 is now recommended
+- Use of Ruby 2.2.2 is now recommended
 
 ### Bug Fixes
 - Fixed an issue preventing public files from being downloaded when an invalid token was entered
