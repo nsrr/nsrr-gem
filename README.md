@@ -20,15 +20,21 @@ The following commands can be run in **Command Prompt** on Windows, and in **Ter
 
 Install it yourself as:
 
-    gem install nsrr --no-ri --no-rdoc
+```console
+gem install nsrr --no-ri --no-rdoc
+```
 
 Or add this line to your application's Gemfile:
 
-    gem 'nsrr'
+```
+gem 'nsrr'
+```
 
 And then execute:
 
-    bundle
+```console
+bundle
+```
 
 
 ## Usage
@@ -179,18 +185,18 @@ d.download
 
 To make sure you're using the latest stable version of the NSRR gem, you can run the following command:
 
-```
+```console
 nsrr update
 ```
 
 ### Show the version of the NSRR gem
 
-```
+```console
 nsrr version
 ```
 
 ### Show the available commands of the NSRR gem
 
-```
+```console
 nsrr help
 ```
