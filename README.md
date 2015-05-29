@@ -16,9 +16,11 @@ You must have **Ruby 2.0+ installed** on your system to use the NSRR gem.
 
 ## Installation
 
+The following commands can be run in **Command Prompt** on Windows, and in **Terminal** on Mac OS X.
+
 Install it yourself as:
 
-    $ gem install nsrr --no-ri --no-rdoc
+    gem install nsrr --no-ri --no-rdoc
 
 Or add this line to your application's Gemfile:
 
@@ -26,7 +28,7 @@ Or add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    bundle
 
 
 ## Usage
@@ -38,48 +40,48 @@ And then execute:
 Download an entire dataset.
 
 ```console
-$ nsrr download shhs
+nsrr download shhs
 ```
 
 Download a subfolder of a dataset.
 
 ```console
-$ nsrr download shhs/forms
+nsrr download shhs/forms
 ```
 
 Download a folder without downloading contents of subfolders. By default, when not specified, the command will recursively download all contents of the specified folder and subfolders.
 
 ```console
-$ nsrr download shhs/datasets --shallow
+nsrr download shhs/datasets --shallow
 ```
 
 Continue an in progress download and only compare file sizes. By default, when a downloaded file already exists, the command will do an MD5 file comparison to verify the file is identical to the one on the server. The MD5 comparison is exact, but can be slow on older machines. If you want a quick check, you can tell the command to simply compare the file sizes of the local file and the file on the server which speeds up the comparison process, however it may in some cases be inaccurate.
 
 ```console
-$ nsrr download shhs --fast
+nsrr download shhs --fast
 ```
 
 Redownload all files and overwrite any existing downloaded files.
 
 ```console
-$ nsrr download shhs --fresh
+nsrr download shhs --fresh
 ```
 
 You can combine the file check flag with the folder depth flag as well.
 
 ```console
-$ nsrr download shhs/datasets --shallow --fast
+nsrr download shhs/datasets --shallow --fast
 ```
 
 ### Open the console and download entire datasets
 
 ```console
-$ nsrr console
+nsrr console
 ```
 
 ```
-> d = Dataset.find 'shhs'
-> d.download
+d = Dataset.find 'shhs'
+d.download
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
      Enter your token: AUTHORIZED
@@ -113,8 +115,8 @@ $ nsrr console
 For example to download only the shhs1 edfs folder and skip MD5 file validation:
 
 ```
-> d = Dataset.find 'shhs'
-> d.download('edfs/shhs1', method: 'fast', depth: 'shallow')
+d = Dataset.find 'shhs'
+d.download('edfs/shhs1', method: 'fast', depth: 'shallow')
 
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
@@ -133,8 +135,8 @@ For example to download only the shhs1 edfs folder and skip MD5 file validation:
 You can type `Ctrl-C` to pause the download, and retype the command to restart:
 
 ```
-> d = Dataset.find 'shhs'
-> d.download
+d = Dataset.find 'shhs'
+d.download
 
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
@@ -149,11 +151,11 @@ You can type `Ctrl-C` to pause the download, and retype the command to restart:
 ^C
     Interrupted
 
-Finished in 4.384734 seconds.
+  Finished in 4.384734 seconds.
 
-1 folder created, 2 files downloaded, 60 MiBs downloaded, 0 files skipped, 0 files failed
+  1 folder created, 2 files downloaded, 60 MiBs downloaded, 0 files skipped, 0 files failed
 
-> d.download
+d.download
 
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
@@ -168,9 +170,9 @@ Finished in 4.384734 seconds.
 ^C
     Interrupted
 
-Finished in 2.384734 seconds.
+  Finished in 2.384734 seconds.
 
-1 folder created, 0 files downloaded, 0 MiBs downloaded, 2 files skipped, 0 files failed
+  1 folder created, 0 files downloaded, 0 MiBs downloaded, 2 files skipped, 0 files failed
 ```
 
 ### Update the NSRR gem
