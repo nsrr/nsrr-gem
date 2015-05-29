@@ -81,6 +81,7 @@ $ nsrr console
 > d = Dataset.find 'shhs'
 > d.download
   Get your token here: https://sleepdata.org/token
+  Your input is hidden while entering token.
      Enter your token: AUTHORIZED
            File Check: md5
                 Depth: recursive
@@ -116,6 +117,7 @@ For example to download only the shhs1 edfs folder and skip MD5 file validation:
 > d.download('edfs/shhs1', method: 'fast', depth: 'shallow')
 
   Get your token here: https://sleepdata.org/token
+  Your input is hidden while entering token.
      Enter your token: AUTHORIZED
            File Check: md5
                 Depth: recursive
@@ -135,6 +137,7 @@ You can type `Ctrl-C` to pause the download, and retype the command to restart:
 > d.download
 
   Get your token here: https://sleepdata.org/token
+  Your input is hidden while entering token.
      Enter your token: AUTHORIZED
            File Check: md5
                 Depth: recursive
@@ -153,6 +156,7 @@ Finished in 4.384734 seconds.
 > d.download
 
   Get your token here: https://sleepdata.org/token
+  Your input is hidden while entering token.
      Enter your token: AUTHORIZED
            File Check: md5
                 Depth: recursive

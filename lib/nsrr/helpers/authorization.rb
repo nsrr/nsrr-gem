@@ -5,6 +5,7 @@ module Nsrr
     class Authorization
       def self.get_token(token)
         puts  "  Get your token here: " + "#{Nsrr::WEBSITE}/token".colorize( :blue ).on_white.underline
+        puts  "  Your input is hidden while entering token.".colorize(:white)
         print "     Enter your token: "
         token = STDIN.noecho(&:gets).chomp if token.to_s.strip == ''
 
