@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.2.0 (May 29, 2015)
 
 ### Enhancements
 - The `nsrr download` command now allows users to download files from private datasets
