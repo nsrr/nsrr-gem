@@ -35,7 +35,7 @@ module Nsrr
           @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         end
       rescue => e
-        puts "Error sending JsonRequestGeneric: #{e}".colorize(:red)
+        puts "Error sending JsonRequest: #{e}".colorize(:red)
       end
 
       def get
