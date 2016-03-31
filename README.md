@@ -209,7 +209,7 @@ It is recommended to use the gem without elevated privileges first in any case
 (to download directly to Desktop for example) before using admin privileges for
 the Ruby gem.
 
-### Issue "`method_missing': undefined method `this'" when running NSRR commands
+### Issue "'method_missing': undefined method 'this'" when running NSRR commands
 
 There is a bug in newer versions of RubyGems that prevent the NSRR gem
 from running correctly. If you run into issues, downgrade RubyGems using the
