@@ -3,6 +3,10 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to Ruby 2.3.0
+  - Updated to colorize 0.7.7
+  - Updated to simplecov 0.11.2
+  - Removed minitest-reporters
+  - Bundler is now a required dependency
 
 ## 0.2.0 (May 29, 2015)
 
