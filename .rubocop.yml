@@ -1,0 +1,20 @@
+AllCops:
+  DisplayCopNames: true
+# Style/Documentation:
+#   Enabled: false
+Metrics/LineLength:
+  Max: 120
+# While methods ideally should be around 5 lines max, comment this out while
+# other issues are present.
+# Metrics/MethodLength:
+#   Max: 5
+Style/ClassAndModuleChildren:
+  Enabled: false
+# Frozen String Literal Pragma will not be needed in Ruby 3+ as it will be the
+# default, Added `frozen_string_literal: true` to use this new default
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+# Strings assigned to constants will no longer be considered mutable in Ruby 3+
+# This can be removed after Ruby 3 is released.
+Style/MutableConstant:
+  Enabled: false
