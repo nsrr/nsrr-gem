@@ -8,6 +8,9 @@
   - Removed minitest-reporters
   - Bundler is now a required dependency
 
+### Bug Fix
+- Fixed an issue that flooded test output with uninitialized string class instance variable `@disable_colorization`
+
 ## 0.2.0 (May 29, 2015)
 
 ### Enhancements
