@@ -195,3 +195,16 @@ nsrr version
 ```console
 nsrr help
 ```
+
+## Common Issues
+
+### Errors Running Ruby in Windows Command Prompt
+
+In some cases when using Ruby on Windows through the Command Prompt, it is
+necessary to open the Command Prompt in **administrator mode** for the NSRR gem
+to work. This may be due to how Ruby was installed (for admins only), or the
+location the files are being downloaded to (a root directory C: for example).
+
+It is recommended to use the gem without elevated privileges first in any case
+(to download directly to Desktop for example) before using admin privileges for
+the Ruby gem.
