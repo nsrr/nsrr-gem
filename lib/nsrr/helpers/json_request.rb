@@ -36,7 +36,7 @@ module Nsrr
         end
       rescue
         @error = "Invalid URL: #{url.inspect}"
-        # puts @error.colorize(:red)
+        puts @error.colorize(:red)
       end
 
       def get
