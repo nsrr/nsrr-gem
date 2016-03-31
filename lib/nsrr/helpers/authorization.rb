@@ -11,6 +11,7 @@ module Nsrr
         puts  '  Your input is hidden while entering token.'.colorize(:white)
         print '     Enter your token: '
         token = STDIN.noecho(&:gets).chomp if token.to_s.strip == ''
+        token.strip!
         (response, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/api/v1/account/profile.json", auth_token: token)
         if response.is_a?(Hash) && response['authenticated']
           puts 'AUTHORIZED'.colorize(:green) + ' as ' + "#{response['first_name']} #{response['last_name']}".colorize(:white)

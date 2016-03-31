@@ -4,6 +4,8 @@
 - **Download Command**
   - The `nsrr download` command can now download single files
     - Ex: `nsrr download shhs/datasets/CHANGELOG.md`
+  - User tokens are stripped of extra whitespace to avoid common authentication
+    issues
 - **Gem Changes**
   - Updated to Ruby 2.3.0
   - Updated to colorize 0.7.7
