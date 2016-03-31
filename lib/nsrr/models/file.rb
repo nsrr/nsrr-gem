@@ -1,22 +1,25 @@
-# Models a downloadable file or folder
-require 'digest/md5'
+# frozen_string_literal: true
 
+require 'digest/md5'
 require 'nsrr/helpers/constants'
 require 'nsrr/helpers/download_request'
 
 module Nsrr
   module Models
+    # Models a downloadable file or folder
     class File
-      attr_reader :name, :is_file, :web_file_size, :web_checksum
+      attr_reader :dataset_slug, :full_path, :folder, :file_name, :is_file, :file_size, :file_checksum_md5, :archived
 
       def initialize(json = {})
-        @name = json['file_name']
-        @web_checksum = json['checksum']
-        @is_file = json['is_file']
-        @web_file_size = json['file_size']
         @dataset_slug = json['dataset']
-        @file_path = json['file_path']
-        @latest_checksum = ""
+        @full_path = json['full_path']
+        @folder = json['folder']
+        @file_name = json['file_name']
+        @is_file = json['is_file']
+        @file_size = json['file_size']
+        @file_checksum_md5 = json['file_checksum_md5']
+        @archived = json['archived']
+        @latest_checksum = ''
         @latest_file_size = -1
       end
 
@@ -51,9 +54,9 @@ module Nsrr
       # If the file check fails, the file is downloaded a second time and rechecked.
       # If the second download and check fail, the file is marked as failed, and the downloader continues to the subsequent file.
       def force_download(path, token, method)
-        download_folder = ::File.join(Dir.pwd, path.to_s, @name.to_s)
+        download_folder = ::File.join(Dir.pwd, path.to_s, @file_name.to_s)
         auth_section = (token.to_s == '' ? '' : "/a/#{token}")
-        download_url = "#{Nsrr::WEBSITE}/datasets/#{@dataset_slug}/files#{auth_section}/m/nsrr-gem-v#{Nsrr::VERSION::STRING.gsub('.', '-')}/#{@file_path.to_s}"
+        download_url = "#{Nsrr::WEBSITE}/datasets/#{@dataset_slug}/files#{auth_section}/m/nsrr-gem-v#{Nsrr::VERSION::STRING.gsub('.', '-')}/#{@full_path.to_s}"
         download_request = Nsrr::Helpers::DownloadRequest.new(download_url, download_folder)
         download_request.get
 
@@ -73,56 +76,56 @@ module Nsrr
         end
 
         if download_request.error.to_s == '' and download_success
-          puts "  downloaded".colorize(:green) + " #{@name}"
+          puts "  downloaded".colorize(:green) + " #{@file_name}"
           download_request.file_size
         elsif download_request.error.to_s == ''
-          puts "      failed".colorize(:red) + " #{@name}"
+          puts "      failed".colorize(:red) + " #{@file_name}"
           if method == 'fast'
-            puts "             File size mismatch, expected: #{@web_file_size}"
+            puts "             File size mismatch, expected: #{@file_size}"
             puts "                                   actual: #{@latest_file_size}"
           else
-            puts "             File checksum mismatch, expected: #{@web_checksum}"
+            puts "             File checksum mismatch, expected: #{@file_checksum_md5}"
             puts "                                       actual: #{@latest_checksum}"
           end
           ::File.delete(download_folder) if ::File.exist?(download_folder)
           'fail'
         else
-          puts "      failed".colorize(:red) + " #{@name}"
+          puts '      failed'.colorize(:red) + " #{@file_name}"
           puts "             #{download_request.error}"
           'fail'
         end
       end
 
       def skip
-        puts "   identical".colorize(:light_blue) + " #{self.name}"
+        puts '   identical'.colorize(:light_blue) + " #{file_name}"
         'skip'
       end
 
       def md5_matches?(path)
-        @web_checksum == local_checksum(path)
+        @file_checksum_md5 == local_checksum(path)
       end
 
       def local_checksum(path)
-        download_folder = ::File.join(Dir.pwd, path.to_s, self.name.to_s)
+        download_folder = ::File.join(Dir.pwd, path.to_s, file_name.to_s)
         @latest_checksum = if ::File.exist?(download_folder)
-          Digest::MD5.file(download_folder).hexdigest
-        else
-          ""
-        end
+                             Digest::MD5.file(download_folder).hexdigest
+                           else
+                             ''
+                           end
         @latest_checksum
       end
 
       def file_size_matches?(path)
-        @web_file_size == local_filesize(path)
+        @file_size == local_filesize(path)
       end
 
       def local_filesize(path)
-        download_folder = ::File.join(Dir.pwd, path.to_s, self.name.to_s)
+        download_folder = ::File.join(Dir.pwd, path.to_s, file_name.to_s)
         @latest_file_size = if ::File.exist?(download_folder)
-          ::File.size(download_folder)
-        else
-          -1
-        end
+                              ::File.size(download_folder)
+                            else
+                              -1
+                            end
         @latest_file_size
       end
 
@@ -133,8 +136,6 @@ module Nsrr
           md5_matches?(path)
         end
       end
-
     end
   end
 end
-

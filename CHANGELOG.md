@@ -1,6 +1,9 @@
 ## 0.3.0
 
 ### Enhancements
+- **Download Command**
+  - The `nsrr download` command can now download single files
+    - Ex: `nsrr download shhs/datasets/CHANGELOG.md`
 - **Gem Changes**
   - Updated to Ruby 2.3.0
   - Updated to colorize 0.7.7

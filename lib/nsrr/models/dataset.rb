@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'colorize'
 require 'fileutils'
 require 'irb'
@@ -12,10 +14,11 @@ require 'nsrr/models/file'
 
 module Nsrr
   module Models
+    # Allows dataset and dataset file information to be retrieved, as well as
+    # allowing dataset files to be downloaded.
     class Dataset
       def self.find(slug, token = nil)
-        auth_section = (token.to_s == '' ? '' : "/a/#{token}")
-        json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}#{auth_section}/datasets/#{slug}.json")
+        (json, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/api/v1/datasets/#{slug}.json", auth_token: token)
         if json
           new(json, token)
         else
@@ -31,18 +34,20 @@ module Nsrr
         @name = json['name']
         @files = {}
         @download_token = token
+        @downloaded_folders = []
       end
 
       def files(path = nil)
         @files[path] ||= begin
-          auth_section = (@download_token.to_s == '' ? '' : "/a/#{@download_token}" )
-          json = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets/#{@slug}#{auth_section}/json_manifest/#{path}")
-          (json || []).collect{|file_json| Nsrr::Models::File.new(file_json)}
+          url = "#{Nsrr::WEBSITE}/api/v1/datasets/#{@slug}/files.json"
+          params = { auth_token: @download_token, path: path }
+          (json, _status) = Nsrr::Helpers::JsonRequest.get(url, params)
+          (json || []).collect { |file_json| Nsrr::Models::File.new(file_json) }
         end
       end
 
       def folders(path = nil)
-        self.files(path).select{|f| !f.is_file}.collect{|f| f.name}
+        files(path).select { |f| !f.is_file }.collect(&:file_name)
       end
 
       # Options include:
@@ -53,7 +58,7 @@ module Nsrr
       # depth:
       #   'recursive' => [default] Downloads files in selected path folder and all subfolders
       #   'shallow'   => Only downloads files in selected path folder
-      def download(path = nil, *args)
+      def download(full_path = nil, *args)
         options = Nsrr::Helpers::HashHelper.symbolize_keys(args.first || {})
         options[:method] ||= 'md5'
         options[:depth] ||= 'recursive'
@@ -64,16 +69,16 @@ module Nsrr
         @files_failed = 0
 
         begin
-          puts "           File Check: " + options[:method].to_s.colorize(:white)
-          puts "                Depth: " + options[:depth].to_s.colorize(:white)
-          puts ""
-          if @download_token == nil
+          puts '           File Check: ' + options[:method].to_s.colorize(:white)
+          puts '                Depth: ' + options[:depth].to_s.colorize(:white)
+          puts ''
+          if @download_token.nil?
             @download_token = Nsrr::Helpers::Authorization.get_token(@download_token)
           end
 
           @start_time = Time.now
 
-          download_helper(path, options)
+          download_helper(full_path, options)
         rescue Interrupt, IRB::Abort
           puts "\n   Interrupted".colorize(:red)
         end
@@ -81,21 +86,25 @@ module Nsrr
         @downloaded_megabytes = @downloaded_bytes / (1024 * 1024)
 
         puts "\nFinished in #{Time.now - @start_time} seconds." if @start_time
-        puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".colorize(:white) + ", " +
-             "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".colorize(:green) + ", " +
-             "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".colorize(:green) + ", " +
-             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".colorize(:light_blue) + ", " +
-             "#{@files_failed} file#{"s" if @files_failed != 1} failed".colorize(:red) + "\n\n"
+        puts "\n#{@folders_created} folder#{'s' if @folders_created != 1} created".colorize(:white) + ', ' +
+             "#{@files_downloaded} file#{'s' if @files_downloaded != 1} downloaded".colorize(:green) + ', ' +
+             "#{@downloaded_megabytes} MiB#{'s' if @downloaded_megabytes != 1} downloaded".colorize(:green) + ', ' +
+             "#{@files_skipped} file#{'s' if @files_skipped != 1} skipped".colorize(:light_blue) + ', ' +
+             "#{@files_failed} file#{'s' if @files_failed != 1} failed".colorize(:red) + "\n\n"
         nil
       end
 
-      def download_helper(path, options)
-        current_folder = ::File.join(self.slug.to_s, path.to_s)
-        create_folder(current_folder) if self.files(path).count > 0
+      def download_helper(full_path, options)
+        return if @downloaded_folders.include?(full_path)
+        @downloaded_folders << full_path
 
-        self.files(path).select{|f| f.is_file}.each do |file|
+        create_folder_for_path(full_path)
+
+        files(full_path).select(&:is_file).each do |file|
+          current_folder = ::File.join(slug.to_s, file.folder.to_s)
           result = file.download(options[:method], current_folder, @download_token)
-          case result when 'fail'
+          case result
+          when 'fail'
             @files_failed += 1
           when 'skip'
             @files_skipped += 1
@@ -104,21 +113,25 @@ module Nsrr
             @downloaded_bytes += result
           end
         end
-
         if options[:depth] == 'recursive'
-          self.files(path).select{|f| !f.is_file}.each do |file|
-            folder = [path, file.name].compact.join('/')
-            self.download_helper(folder, options)
+          files(full_path).reject(&:is_file).each do |file|
+            download_helper(file.full_path, options)
           end
         end
       end
 
+      def create_folder_for_path(full_path)
+        files(full_path).collect(&:folder).uniq.each do |folder|
+          current_folder = ::File.join(slug.to_s, folder.to_s)
+          create_folder(current_folder)
+        end
+      end
+
       def create_folder(folder)
-        puts "      create".colorize(:white) + " #{folder}"
+        puts '      create'.colorize(:white) + " #{folder}"
         FileUtils.mkdir_p folder
         @folders_created += 1
       end
-
     end
   end
 end

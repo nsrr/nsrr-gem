@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'test_helpers/capture'
 require 'test_helpers/nsrr_website_rack'
@@ -5,8 +7,8 @@ require 'test_helpers/nsrr_website_rack'
 require 'nsrr/models/dataset'
 
 module ModelsTests
+  # Test to assure that datasets can be loaded properly.
   class DatasetTest < Minitest::Test
-
     include TestHelpers::Capture
     include TestHelpers::NsrrWebsiteRack
 
@@ -21,9 +23,8 @@ module ModelsTests
         d = Nsrr::Models::Dataset.find 'wecare'
         assert_equal 'wecare', d.slug
         assert_equal 'We Care Clinical Trial', d.name
-        assert_equal ['datasets', 'forms'], d.folders
+        assert_equal %w(datasets forms), d.folders
       end
     end
-
   end
 end

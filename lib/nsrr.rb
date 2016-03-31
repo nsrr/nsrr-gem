@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'colorize'
 
-require "nsrr/version"
+require 'nsrr/version'
 
 Nsrr::COMMANDS = {
   'c' => :console,
   'd' => :download,
   'u' => :update,
   'v' => :version
-}
+}.freeze
 
 module Nsrr
   def self.launch(argv)
-    self.send((Nsrr::COMMANDS[argv.first.to_s.scan(/\w/).first] || :help), argv)
+    send((Nsrr::COMMANDS[argv.first.to_s.scan(/\w/).first] || :help), argv)
   end
 
   def self.console(argv)
@@ -29,7 +31,7 @@ module Nsrr
     Nsrr::Commands::Update.start(argv)
   end
 
-  def self.help(argv)
+  def self.help(_)
     puts <<-EOT
 
 Usage: nsrr COMMAND [ARGS]
@@ -45,13 +47,12 @@ Commands can be referenced by the first letter:
   Ex: `nsrr v`, for version
 
 EOT
-    puts "Read more on the download command here:"
-    puts "  " + "https://github.com/nsrr/nsrr-gem".colorize( :blue ).on_white.underline
+    puts 'Read more on the download command here:'
+    puts '  ' + 'https://github.com/nsrr/nsrr-gem'.colorize(:blue).on_white.underline
     puts "\n"
   end
 
-  def self.version(argv)
+  def self.version(_)
     puts "Nsrr #{Nsrr::VERSION::STRING}"
   end
-
 end
