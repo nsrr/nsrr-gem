@@ -90,7 +90,7 @@ module Nsrr
              "#{@files_downloaded} file#{'s' if @files_downloaded != 1} downloaded".colorize(:green) + ', ' +
              "#{@downloaded_megabytes} MiB#{'s' if @downloaded_megabytes != 1} downloaded".colorize(:green) + ', ' +
              "#{@files_skipped} file#{'s' if @files_skipped != 1} skipped".colorize(:light_blue) + ', ' +
-             "#{@files_failed} file#{'s' if @files_failed != 1} failed".colorize(:red) + "\n\n"
+             "#{@files_failed} file#{'s' if @files_failed != 1} failed".colorize(@files_failed == 0 ? :white : :red) + "\n\n"
         nil
       end
 
