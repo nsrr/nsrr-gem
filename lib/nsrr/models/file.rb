@@ -59,22 +59,17 @@ module Nsrr
         download_url = "#{Nsrr::WEBSITE}/datasets/#{@dataset_slug}/files#{auth_section}/m/nsrr-gem-v#{Nsrr::VERSION::STRING.gsub('.', '-')}/#{@full_path.to_s}"
         download_request = Nsrr::Helpers::DownloadRequest.new(download_url, download_folder)
         download_request.get
-
         download_success = false
-
         if download_request.error.to_s == ''
           # Check to see if the file downloaded correctly
           # If the file size doesn't match, attempt one additional download
           download_success = did_download_succeed?(method, path)
-
           unless download_success
             download_request = Nsrr::Helpers::DownloadRequest.new(download_url, download_folder)
             download_request.get
-
             download_success = did_download_succeed?(method, path)
           end
         end
-
         if download_request.error.to_s == '' and download_success
           puts "  downloaded".colorize(:green) + " #{@file_name}"
           download_request.file_size

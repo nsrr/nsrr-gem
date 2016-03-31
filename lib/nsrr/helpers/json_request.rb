@@ -34,11 +34,13 @@ module Nsrr
           @http.use_ssl = true
           @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         end
-      rescue => e
-        puts "Error sending JsonRequest: #{e}".colorize(:red)
+      rescue
+        @error = "Invalid URL: #{url.inspect}"
+        # puts @error.colorize(:red)
       end
 
       def get
+        return unless @error.nil?
         full_path = @url.path
         query = ([@url.query] + @params).flatten.compact.join('&')
         full_path += "?#{query}" if query.to_s != ''
@@ -51,6 +53,7 @@ module Nsrr
       end
 
       def post
+        return unless @error.nil?
         response = @http.start do |http|
           http.post(@url.path, @params.flatten.compact.join('&'))
         end
