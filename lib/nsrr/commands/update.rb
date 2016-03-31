@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'colorize'
-
 require 'nsrr/helpers/json_request'
 
 module Nsrr
@@ -19,7 +18,6 @@ module Nsrr
 
       def start
         (json, _status) = Nsrr::Helpers::JsonRequest.get('https://rubygems.org/api/v1/gems/nsrr.json')
-
         if json
           if json['version'] == Nsrr::VERSION::STRING
             puts 'The nsrr gem is ' + 'up-to-date'.colorize(:green) + '!'

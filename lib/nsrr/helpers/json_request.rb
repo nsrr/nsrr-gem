@@ -7,6 +7,7 @@ require 'cgi'
 
 module Nsrr
   module Helpers
+    # Aids in generating JSON requests for GET, POST, and PATCH.
     class JsonRequest
       class << self
         def get(url, *args)

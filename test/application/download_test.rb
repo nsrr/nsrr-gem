@@ -3,10 +3,10 @@
 require 'test_helper'
 require 'test_helpers/capture'
 require 'test_helpers/nsrr_website_rack'
-
 require 'nsrr/commands/download'
 
 module ApplicationTests
+  # Tests to assure that files and folders are downloaded correctly.
   class DownloadTest < Minitest::Test
     include TestHelpers::Capture
     include TestHelpers::NsrrWebsiteRack

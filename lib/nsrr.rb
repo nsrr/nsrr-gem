@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'colorize'
-
 require 'nsrr/version'
 
 Nsrr::COMMANDS = {
@@ -11,6 +10,7 @@ Nsrr::COMMANDS = {
   'v' => :version
 }.freeze
 
+# Exposes certain commands for access from the command line.
 module Nsrr
   def self.launch(argv)
     send((Nsrr::COMMANDS[argv.first.to_s.scan(/\w/).first] || :help), argv)

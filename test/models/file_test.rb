@@ -6,21 +6,12 @@ require 'test_helpers/capture'
 require 'nsrr/models/file'
 
 module ModelsTests
+  # Test to assure that file properties are assigned correctly.
   class FileTest < Minitest::Test
     include TestHelpers::Capture
 
     def test_new_file
-      f = Nsrr::Models::File.new({
-        'dataset' => 'wecare',
-        'full_path' => 'folder/test.txt',
-        'folder' => 'folder/',
-        'file_name' => 'test.txt',
-        'is_file' => true,
-        'file_size' => 9,
-        'file_checksum_md5' => 'abc',
-        'archived' => false,
-      })
-
+      f = Nsrr::Models::File.new(file_params)
       assert_equal 'wecare',          f.dataset_slug
       assert_equal 'folder/test.txt', f.full_path
       assert_equal 'folder/',         f.folder
@@ -29,6 +20,19 @@ module ModelsTests
       assert_equal 9,                 f.file_size
       assert_equal 'abc',             f.file_checksum_md5
       assert_equal false,             f.archived
+    end
+
+    def file_params
+      {
+        'dataset' => 'wecare',
+        'full_path' => 'folder/test.txt',
+        'folder' => 'folder/',
+        'file_name' => 'test.txt',
+        'is_file' => true,
+        'file_size' => 9,
+        'file_checksum_md5' => 'abc',
+        'archived' => false
+      }
     end
   end
 end

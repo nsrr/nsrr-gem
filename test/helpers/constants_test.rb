@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'test_helpers/capture'
-
 require 'nsrr/helpers/constants'
 
 module HelpersTests
