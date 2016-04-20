@@ -21,7 +21,7 @@ The following commands can be run in **Command Prompt** on Windows, and in **Ter
 Install it yourself as:
 
 ```console
-gem install nsrr --no-ri --no-rdoc
+gem install nsrr --no-document
 ```
 
 **NOTE:** There is a bug in newer versions of RubyGems that prevent the NSRR gem
@@ -29,7 +29,7 @@ from running correctly. If you run into issues, downgrade RubyGems using the
 following command:
 
 ```console
-gem update --system 2.4.8 --no-ri --no-rdoc
+gem update --system 2.4.8 --no-document
 ```
 
 ## Usage
@@ -234,6 +234,6 @@ You can fix this error by reverting to the last stable version of RubyGems,
 `2.4.8`.
 
 ```console
-gem update --system 2.4.8 --no-ri --no-rdoc
+gem update --system 2.4.8 --no-document
 ```
 
