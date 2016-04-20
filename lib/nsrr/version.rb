@@ -5,7 +5,7 @@ module Nsrr
     MAJOR = 0
     MINOR = 3
     TINY = 0
-    BUILD = 'beta1' # 'pre', 'beta1', 'beta2', 'rc', 'rc2', nil
+    BUILD = 'beta2' # 'pre', 'beta1', 'beta2', 'rc', 'rc2', nil
 
     STRING = [MAJOR, MINOR, TINY, BUILD].compact.join('.')
   end
