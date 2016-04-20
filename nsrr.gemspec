@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'The official ruby gem to simplify file downloads and dataset integration tasks for the NSRR website, https://sleepdata.org'
   spec.description   = 'The official ruby gem to simplify file downloads and dataset integration tasks for the NSRR website, https://sleepdata.org'
   spec.homepage      = 'https://github.com/nsrr/nsrr-gem'
-  spec.license       = 'CC BY-NC-SA 3.0'
+  spec.license       = 'CC-BY-NC-SA-3.0'
 
   spec.files = Dir['{bin,lib}/**/*'] + ['CHANGELOG.md', 'LICENSE', 'Rakefile', 'README.md', 'nsrr.gemspec']
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
