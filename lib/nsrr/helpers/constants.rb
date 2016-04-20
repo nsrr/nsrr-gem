@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-Nsrr::WEBSITE = "https://sleepdata.org"
+Nsrr::WEBSITE = 'https://sleepdata.org'
