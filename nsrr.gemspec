@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
   spec.version       = Nsrr::VERSION::STRING
   spec.authors       = ['Remo Mueller']
   spec.email         = ['remosm@gmail.com']
-  spec.summary       = 'The official ruby gem to simplify file downloads and dataset integration tasks for the NSRR website, https://sleepdata.org'
-  spec.description   = 'The official ruby gem to simplify file downloads and dataset integration tasks for the NSRR website, https://sleepdata.org'
+  spec.summary       = 'Download files easily from the NSRR website, https://sleepdata.org'
+  spec.description   = 'The official ruby gem to download files and datasets from the [NSRR](https://sleepdata.org)'
   spec.homepage      = 'https://github.com/nsrr/nsrr-gem'
   spec.license       = 'CC-BY-NC-SA-3.0'
 
