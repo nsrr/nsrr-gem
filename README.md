@@ -231,7 +231,7 @@ gem -v
 ```
 
 You can fix this error by reverting to the last stable version of RubyGems,
-`2.4.8`.
+`2.4.8`. Note: RubyGems `2.6.3` also includes a fix to this issue.
 
 ```console
 gem update --system 2.4.8 --no-document
