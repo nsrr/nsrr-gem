@@ -1,4 +1,4 @@
-## 0.3.0
+## 0.3.0 (April 25, 2016)
 
 ### Enhancements
 - **Download Command**
