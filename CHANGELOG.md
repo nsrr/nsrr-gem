@@ -2,6 +2,7 @@
 
 ### Enhancements
   - Updated to Ruby 2.3.3
+  - Updated to colorize 0.8.1
 
 ## 0.3.0 (April 25, 2016)
 
