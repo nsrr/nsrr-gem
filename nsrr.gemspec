@@ -27,8 +27,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'bundler', '~> 1.11'
-  spec.add_dependency 'rake'
-  spec.add_dependency 'minitest'
+  spec.add_dependency 'bundler', '~> 1.13'
   spec.add_dependency 'colorize', '~> 0.8.1'
+  spec.add_dependency 'minitest'
+  spec.add_dependency 'rake'
 end

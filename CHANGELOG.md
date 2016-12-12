@@ -4,6 +4,7 @@
   - Updated to Ruby 2.3.3
   - Updated to colorize 0.8.1
   - Updated to simplecov 0.12.0
+  - Updated to bundler 1.13
 
 ## 0.3.0 (April 25, 2016)
 
