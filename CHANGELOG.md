@@ -1,6 +1,7 @@
 ## 0.4.0
 
 ### Enhancements
+- **Gem Changes**
   - Updated to Ruby 2.3.3
   - Updated to colorize 0.8.1
   - Updated to simplecov 0.12.0
