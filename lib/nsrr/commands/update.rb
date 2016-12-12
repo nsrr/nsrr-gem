@@ -25,7 +25,7 @@ module Nsrr
             puts
             puts "A newer version (v#{json['version']}) is available! Type the following command to update:"
             puts
-            puts '  gem install nsrr --no-ri --no-rdoc'.colorize(:white)
+            puts '  gem install nsrr --no-document'.colorize(:white)
             puts
           end
         else
