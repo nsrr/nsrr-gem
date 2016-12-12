@@ -1,5 +1,8 @@
 ## 0.4.0
 
+### Enhancements
+  - Updated to Ruby 2.3.3
+
 ## 0.3.0 (April 25, 2016)
 
 ### Enhancements
