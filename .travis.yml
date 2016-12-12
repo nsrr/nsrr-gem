@@ -3,7 +3,7 @@ language: ruby
 rvm:
   - 2.2.6
   - 2.3.3
-  - 2.4.0-preview3
+  - 2.4.0-rc1
 matrix:
   allow_failures:
-    - rvm: 2.4.0-preview3
+    - rvm: 2.4.0-rc1
