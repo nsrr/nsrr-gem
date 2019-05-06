@@ -1,6 +1,6 @@
 # NSRR Ruby Gem
 
-[![Build Status](https://travis-ci.org/nsrr/nsrr-gem.svg?branch=master)](https://travis-ci.org/nsrr/nsrr-gem)
+[![Build Status](https://travis-ci.com/nsrr/nsrr-gem.svg?branch=master)](https://travis-ci.com/nsrr/nsrr-gem)
 [![Code Climate](https://codeclimate.com/github/nsrr/nsrr-gem/badges/gpa.svg)](https://codeclimate.com/github/nsrr/nsrr-gem)
 
 The official ruby gem built to simplify file downloads and dataset integration tasks for the [National Sleep Research Resource](https://sleepdata.org).
