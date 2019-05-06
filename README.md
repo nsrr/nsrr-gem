@@ -207,32 +207,3 @@ location the files are being downloaded to (a root directory C: for example).
 It is recommended to use the gem without elevated privileges first in any case
 (to download directly to Desktop for example) before using admin privileges for
 the Ruby gem.
-
-### Issue "'method_missing': undefined method 'this'" when running NSRR commands
-
-There is a bug in newer versions of RubyGems that prevent the NSRR gem
-from running correctly. If you run into issues, downgrade RubyGems using the
-following command:
-
-The following versions of RubyGems cause issues while running NSRR commands:
-
-- `2.5.0`
-- `2.5.1`
-- `2.5.2`
-- `2.6.0`
-- `2.6.1`
-- `2.6.2`
-
-You can check which version you have installed by typing:
-
-```console
-gem -v
-```
-
-You can fix this error by reverting to the last stable version of RubyGems,
-`2.4.8`. Note: RubyGems `2.6.3` also includes a fix to this issue.
-
-```console
-gem update --system 2.4.8 --no-document
-```
-
