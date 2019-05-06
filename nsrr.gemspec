@@ -8,7 +8,7 @@
 # gem list -r nsrr
 # gem install nsrr
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "nsrr/version"
 
