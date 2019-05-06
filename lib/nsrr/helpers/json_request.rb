@@ -43,26 +43,37 @@ module Nsrr
 
       def get
         return unless @error.nil?
+
         full_path = @url.path
         query = ([@url.query] + @params).flatten.compact.join("&")
         full_path += "?#{query}" if query.to_s != ""
         response = @http.start do |http|
           http.get(full_path)
         end
-        [JSON.parse(response.body), response]
-      rescue => e
-        puts "GET Error: #{e}".red
+        if response.body
+          [JSON.parse(response.body), response]
+        else
+          [nil, response]
+        end
+      rescue => e # JSON::ParserError, Net::ReadTimeout
+        puts "GET error: #{e}".red
+        [nil, nil]
       end
 
       def post
         return unless @error.nil?
+
         response = @http.start do |http|
           http.post(@url.path, @params.flatten.compact.join("&"))
         end
-        [JSON.parse(response.body), response]
-      rescue => e
-        puts "POST ERROR: #{e}".red
-        nil
+        if response.body
+          [JSON.parse(response.body), response]
+        else
+          [nil, response]
+        end
+      rescue => e # JSON::ParserError, Net::ReadTimeout
+        puts "POST error: #{e}".red
+        [nil, nil]
       end
 
       def patch

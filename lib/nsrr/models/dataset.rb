@@ -18,12 +18,11 @@ module Nsrr
     # allowing dataset files to be downloaded.
     class Dataset
       def self.find(slug, token = nil)
-        (json, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/api/v1/datasets/#{slug}.json", auth_token: token)
-        if json
-          new(json, token)
-        else
-          nil
-        end
+        (json, _status) = Nsrr::Helpers::JsonRequest.get(
+          "#{Nsrr::WEBSITE}/api/v1/datasets/#{slug}.json",
+          auth_token: token
+        )
+        new(json, token) if json
       end
 
       attr_accessor :download_token
