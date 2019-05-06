@@ -9,5 +9,5 @@ gemspec
 group :test do
   gem "artifice"
   gem "minitest"
-  gem "simplecov", "~> 0.12.0", require: false
+  gem "simplecov", "~> 0.16.1", require: false
 end
