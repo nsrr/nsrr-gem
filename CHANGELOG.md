@@ -1,6 +1,8 @@
 ## 5.0.0
 
 ### Enhancements
+- **General Changes**
+  - Update to MIT license
 - **Gem Changes**
   - Update to bundler >= 1.3.0
   - Update to simplecov 0.16.1
