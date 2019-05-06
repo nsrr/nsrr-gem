@@ -5,6 +5,7 @@
   - Update to MIT license
   - Update all server requests to use NSRR API v1
 - **Gem Changes**
+  - Update to ruby 2.6.3
   - Update to bundler >= 1.3.0
   - Update to simplecov 0.16.1
   - Remove colorize
