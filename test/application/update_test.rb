@@ -23,7 +23,7 @@ module ApplicationTests
 
     def rubygems_not_available
       proc do
-        fail Net::ReadTimeout
+        raise Net::ReadTimeout
       end
     end
 
