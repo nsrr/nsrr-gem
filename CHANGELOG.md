@@ -1,5 +1,9 @@
 ## 5.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update bundler to >= 1.3.0
+
 ## 0.4.0 (December 13, 2016)
 
 ### Enhancements
