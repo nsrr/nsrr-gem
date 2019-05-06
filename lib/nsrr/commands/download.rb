@@ -38,7 +38,7 @@ module Nsrr
             @dataset.download(@full_path, depth: @depth, method: @file_comparison)
           else
             puts "\nThe dataset " + @dataset_slug.to_s.white + " was not found."
-            (datasets, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets.json", auth_token: @token)
+            (datasets, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/api/v1/datasets.json", auth_token: @token)
             puts "Did you mean one of: #{datasets.collect { |d| d["slug"].white }.sort.join(", ") }" if datasets && datasets.size > 0
           end
         end
