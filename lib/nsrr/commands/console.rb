@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'irb'
-require 'irb/completion'
-require 'nsrr/models/all'
+require "irb"
+require "irb/completion"
+require "nsrr/models/all"
 
 module Nsrr
   module Commands

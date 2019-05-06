@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'test_helpers/capture'
+require "test_helper"
+require "test_helpers/capture"
 
 module ApplicationTests
   # Test to assure that the help documentation displays correctly.
@@ -10,10 +10,10 @@ module ApplicationTests
 
     def test_help
       output, _error = util_capture do
-        Nsrr.launch ['help']
+        Nsrr.launch ["help"]
       end
 
-      assert_match 'The most common nsrr commands are:', output
+      assert_match "The most common nsrr commands are:", output
       Nsrr::COMMANDS.keys.each do |key|
         assert_match(/^  \[#{key}\]/, output)
       end

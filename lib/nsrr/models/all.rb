@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-require 'nsrr/models/dataset'
+require "nsrr/models/dataset"

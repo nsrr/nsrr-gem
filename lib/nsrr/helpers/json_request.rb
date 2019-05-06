@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'openssl'
-require 'net/http'
-require 'json'
-require 'cgi'
+require "openssl"
+require "net/http"
+require "json"
+require "cgi"
 
 module Nsrr
   module Helpers
@@ -30,7 +30,7 @@ module Nsrr
         @url = URI.parse(url)
 
         @http = Net::HTTP.new(@url.host, @url.port)
-        if @url.scheme == 'https'
+        if @url.scheme == "https"
           @http.use_ssl = true
           @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         end
@@ -42,8 +42,8 @@ module Nsrr
       def get
         return unless @error.nil?
         full_path = @url.path
-        query = ([@url.query] + @params).flatten.compact.join('&')
-        full_path += "?#{query}" if query.to_s != ''
+        query = ([@url.query] + @params).flatten.compact.join("&")
+        full_path += "?#{query}" if query.to_s != ""
         response = @http.start do |http|
           http.get(full_path)
         end
@@ -55,7 +55,7 @@ module Nsrr
       def post
         return unless @error.nil?
         response = @http.start do |http|
-          http.post(@url.path, @params.flatten.compact.join('&'))
+          http.post(@url.path, @params.flatten.compact.join("&"))
         end
         [JSON.parse(response.body), response]
       rescue => e
@@ -64,7 +64,7 @@ module Nsrr
       end
 
       def patch
-        @params << '_method=patch'
+        @params << "_method=patch"
         post
       end
 
@@ -79,10 +79,10 @@ module Nsrr
         if value.is_a? Hash
           value.collect do |k,v|
             key_value_to_string(k, v, current_scope)
-          end.join('&')
+          end.join("&")
         elsif value.is_a? Array
           value.collect do |v|
-            key_value_to_string('', v, current_scope)
+            key_value_to_string("", v, current_scope)
           end
         else
           "#{current_scope}=#{CGI.escape(value.to_s)}"

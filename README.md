@@ -80,7 +80,7 @@ nsrr console
 ```
 
 ```
-d = Dataset.find 'shhs'
+d = Dataset.find "shhs"
 d.download
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
@@ -99,24 +99,24 @@ d.download
 ```
 
 **method**
-  - 'md5' [default]
+  - "md5" [default]
     - Checks if a downloaded file exists with the exact md5 as the online version, if so, skips that file
-  - 'fresh'
+  - "fresh"
     - Downloads every file without checking if it was already downloaded
-  - 'fast'
+  - "fast"
     - Only checks if a download file exists with the same file size as the online version, if so, skips that file
 
 **depth**
-  - 'recursive' [default]
+  - "recursive" [default]
     - Downloads files in selected path folder and all subfolders
-  - 'shallow'
+  - "shallow"
     - Only downloads files in selected path folder
 
 For example to download only the shhs1 edfs folder and skip MD5 file validation:
 
 ```
-d = Dataset.find 'shhs'
-d.download('edfs/shhs1', method: 'fast', depth: 'shallow')
+d = Dataset.find "shhs"
+d.download("edfs/shhs1", method: "fast", depth: "shallow")
 
   Get your token here: https://sleepdata.org/token
   Your input is hidden while entering token.
@@ -135,7 +135,7 @@ d.download('edfs/shhs1', method: 'fast', depth: 'shallow')
 You can type `Ctrl-C` to pause the download, and retype the command to restart:
 
 ```
-d = Dataset.find 'shhs'
+d = Dataset.find "shhs"
 d.download
 
   Get your token here: https://sleepdata.org/token

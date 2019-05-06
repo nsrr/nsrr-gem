@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'colorize'
-require 'fileutils'
-require 'irb'
-require 'io/console'
+require "colorize"
+require "fileutils"
+require "irb"
+require "io/console"
 
-require 'nsrr/helpers/constants'
-require 'nsrr/helpers/hash_helper'
-require 'nsrr/helpers/json_request'
-require 'nsrr/helpers/authorization'
+require "nsrr/helpers/constants"
+require "nsrr/helpers/hash_helper"
+require "nsrr/helpers/json_request"
+require "nsrr/helpers/authorization"
 
-require 'nsrr/models/file'
+require "nsrr/models/file"
 
 module Nsrr
   module Models
@@ -30,8 +30,8 @@ module Nsrr
       attr_reader :slug, :name
 
       def initialize(json = {}, token = nil)
-        @slug = json['slug']
-        @name = json['name']
+        @slug = json["slug"]
+        @name = json["name"]
         @files = {}
         @download_token = token
         @downloaded_folders = []
@@ -52,16 +52,16 @@ module Nsrr
 
       # Options include:
       # method:
-      #   'md5'       => [default] Checks if a downloaded file exists with the exact md5 as the online version, if so, skips that file
-      #   'fresh'     => Downloads every file without checking if it was already downloaded
-      #   'fast'      => Only checks if a download file exists with the same file size as the online version, if so, skips that file
+      #   "md5"       => [default] Checks if a downloaded file exists with the exact md5 as the online version, if so, skips that file
+      #   "fresh"     => Downloads every file without checking if it was already downloaded
+      #   "fast"      => Only checks if a download file exists with the same file size as the online version, if so, skips that file
       # depth:
-      #   'recursive' => [default] Downloads files in selected path folder and all subfolders
-      #   'shallow'   => Only downloads files in selected path folder
+      #   "recursive" => [default] Downloads files in selected path folder and all subfolders
+      #   "shallow"   => Only downloads files in selected path folder
       def download(full_path = nil, *args)
         options = Nsrr::Helpers::HashHelper.symbolize_keys(args.first || {})
-        options[:method] ||= 'md5'
-        options[:depth] ||= 'recursive'
+        options[:method] ||= "md5"
+        options[:depth] ||= "recursive"
         @folders_created = 0
         @files_downloaded = 0
         @downloaded_bytes = 0
@@ -69,9 +69,9 @@ module Nsrr
         @files_failed = 0
 
         begin
-          puts '           File Check: ' + options[:method].to_s.colorize(:white)
-          puts '                Depth: ' + options[:depth].to_s.colorize(:white)
-          puts ''
+          puts "           File Check: " + options[:method].to_s.colorize(:white)
+          puts "                Depth: " + options[:depth].to_s.colorize(:white)
+          puts ""
           if @download_token.nil?
             @download_token = Nsrr::Helpers::Authorization.get_token(@download_token)
           end
@@ -86,11 +86,11 @@ module Nsrr
         @downloaded_megabytes = @downloaded_bytes / (1024 * 1024)
 
         puts "\nFinished in #{Time.now - @start_time} seconds." if @start_time
-        puts "\n#{@folders_created} folder#{'s' if @folders_created != 1} created".colorize(:white) + ', ' +
-             "#{@files_downloaded} file#{'s' if @files_downloaded != 1} downloaded".colorize(:green) + ', ' +
-             "#{@downloaded_megabytes} MiB#{'s' if @downloaded_megabytes != 1} downloaded".colorize(:green) + ', ' +
-             "#{@files_skipped} file#{'s' if @files_skipped != 1} skipped".colorize(:light_blue) + ', ' +
-             "#{@files_failed} file#{'s' if @files_failed != 1} failed".colorize(@files_failed == 0 ? :white : :red) + "\n\n"
+        puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".colorize(:white) + ", " +
+             "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".colorize(:green) + ", " +
+             "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".colorize(:green) + ", " +
+             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".colorize(:light_blue) + ", " +
+             "#{@files_failed} file#{"s" if @files_failed != 1} failed".colorize(@files_failed == 0 ? :white : :red) + "\n\n"
         nil
       end
 
@@ -104,16 +104,16 @@ module Nsrr
           current_folder = ::File.join(slug.to_s, file.folder.to_s)
           result = file.download(options[:method], current_folder, @download_token)
           case result
-          when 'fail'
+          when "fail"
             @files_failed += 1
-          when 'skip'
+          when "skip"
             @files_skipped += 1
           else
             @files_downloaded += 1
             @downloaded_bytes += result
           end
         end
-        if options[:depth] == 'recursive'
+        if options[:depth] == "recursive"
           files(full_path).reject(&:is_file).each do |file|
             download_helper(file.full_path, options)
           end
@@ -128,7 +128,7 @@ module Nsrr
       end
 
       def create_folder(folder)
-        puts '      create'.colorize(:white) + " #{folder}"
+        puts "      create".colorize(:white) + " #{folder}"
         FileUtils.mkdir_p folder
         @folders_created += 1
       end

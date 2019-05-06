@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'test_helpers/capture'
+require "test_helper"
+require "test_helpers/capture"
 
-require 'nsrr/models/file'
+require "nsrr/models/file"
 
 module ModelsTests
   # Test to assure that file properties are assigned correctly.
@@ -12,26 +12,26 @@ module ModelsTests
 
     def test_new_file
       f = Nsrr::Models::File.new(file_params)
-      assert_equal 'wecare',          f.dataset_slug
-      assert_equal 'folder/test.txt', f.full_path
-      assert_equal 'folder/',         f.folder
-      assert_equal 'test.txt',        f.file_name
+      assert_equal "wecare",          f.dataset_slug
+      assert_equal "folder/test.txt", f.full_path
+      assert_equal "folder/",         f.folder
+      assert_equal "test.txt",        f.file_name
       assert_equal true,              f.is_file
       assert_equal 9,                 f.file_size
-      assert_equal 'abc',             f.file_checksum_md5
+      assert_equal "abc",             f.file_checksum_md5
       assert_equal false,             f.archived
     end
 
     def file_params
       {
-        'dataset' => 'wecare',
-        'full_path' => 'folder/test.txt',
-        'folder' => 'folder/',
-        'file_name' => 'test.txt',
-        'is_file' => true,
-        'file_size' => 9,
-        'file_checksum_md5' => 'abc',
-        'archived' => false
+        "dataset" => "wecare",
+        "full_path" => "folder/test.txt",
+        "folder" => "folder/",
+        "file_name" => "test.txt",
+        "is_file" => true,
+        "file_size" => 9,
+        "file_checksum_md5" => "abc",
+        "archived" => false
       }
     end
   end
