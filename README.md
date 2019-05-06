@@ -23,14 +23,6 @@ Install it yourself as:
 gem install nsrr --no-document
 ```
 
-**NOTE:** There is a bug in newer versions of RubyGems that prevent the NSRR gem
-from running correctly. If you run into issues, downgrade RubyGems using the
-following command:
-
-```console
-gem update --system 2.4.8 --no-document
-```
-
 ## Usage
 
 ### Download files from a dataset
