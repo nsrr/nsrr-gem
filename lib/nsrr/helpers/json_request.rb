@@ -5,6 +5,8 @@ require "net/http"
 require "json"
 require "cgi"
 
+require "nsrr/helpers/color"
+
 module Nsrr
   module Helpers
     # Aids in generating JSON requests for GET, POST, and PATCH.
@@ -36,7 +38,7 @@ module Nsrr
         end
       rescue
         @error = "Invalid URL: #{url.inspect}"
-        puts @error.colorize(:red)
+        puts @error.red
       end
 
       def get
@@ -49,7 +51,7 @@ module Nsrr
         end
         [JSON.parse(response.body), response]
       rescue => e
-        puts "GET Error: #{e}".colorize(:red)
+        puts "GET Error: #{e}".red
       end
 
       def post
@@ -59,7 +61,7 @@ module Nsrr
         end
         [JSON.parse(response.body), response]
       rescue => e
-        puts "POST ERROR: #{e}".colorize(:red)
+        puts "POST ERROR: #{e}".red
         nil
       end
 

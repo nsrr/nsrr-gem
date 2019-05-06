@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "colorize"
 require "fileutils"
 require "irb"
 require "io/console"
 
 require "nsrr/helpers/constants"
+require "nsrr/helpers/color"
 require "nsrr/helpers/hash_helper"
 require "nsrr/helpers/json_request"
 require "nsrr/helpers/authorization"
@@ -69,8 +69,8 @@ module Nsrr
         @files_failed = 0
 
         begin
-          puts "           File Check: " + options[:method].to_s.colorize(:white)
-          puts "                Depth: " + options[:depth].to_s.colorize(:white)
+          puts "           File Check: " + options[:method].to_s.white
+          puts "                Depth: " + options[:depth].to_s.white
           puts ""
           if @download_token.nil?
             @download_token = Nsrr::Helpers::Authorization.get_token(@download_token)
@@ -80,17 +80,17 @@ module Nsrr
 
           download_helper(full_path, options)
         rescue Interrupt, IRB::Abort
-          puts "\n   Interrupted".colorize(:red)
+          puts "\n   Interrupted".red
         end
 
         @downloaded_megabytes = @downloaded_bytes / (1024 * 1024)
 
         puts "\nFinished in #{Time.now - @start_time} seconds." if @start_time
-        puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".colorize(:white) + ", " +
-             "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".colorize(:green) + ", " +
-             "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".colorize(:green) + ", " +
-             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".colorize(:light_blue) + ", " +
-             "#{@files_failed} file#{"s" if @files_failed != 1} failed".colorize(@files_failed == 0 ? :white : :red) + "\n\n"
+        puts "\n#{@folders_created} folder#{"s" if @folders_created != 1} created".white + ", " +
+             "#{@files_downloaded} file#{"s" if @files_downloaded != 1} downloaded".green + ", " +
+             "#{@downloaded_megabytes} MiB#{"s" if @downloaded_megabytes != 1} downloaded".green + ", " +
+             "#{@files_skipped} file#{"s" if @files_skipped != 1} skipped".blue + ", " +
+             "#{@files_failed} file#{"s" if @files_failed != 1} failed".send(@files_failed.zero? ? :white : :red) + "\n\n"
         nil
       end
 
@@ -128,7 +128,7 @@ module Nsrr
       end
 
       def create_folder(folder)
-        puts "      create".colorize(:white) + " #{folder}"
+        puts "      create".white + " #{folder}"
         FileUtils.mkdir_p folder
         @folders_created += 1
       end

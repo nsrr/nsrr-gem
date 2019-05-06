@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "colorize"
+require "nsrr/helpers/color"
 require "nsrr/version"
 
 Nsrr::COMMANDS = {
@@ -48,7 +48,7 @@ Commands can be referenced by the first letter:
 
 EOT
     puts "Read more on the download command here:"
-    puts "  " + "https://github.com/nsrr/nsrr-gem".colorize(:blue).on_white.underline
+    puts "  " + "https://github.com/nsrr/nsrr-gem".bg_gray.blue.underline
     puts "\n"
   end
 

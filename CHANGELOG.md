@@ -4,6 +4,7 @@
 - **Gem Changes**
   - Update to bundler >= 1.3.0
   - Update to simplecov 0.16.1
+  - Remove colorize
 
 ## 0.4.0 (December 13, 2016)
 

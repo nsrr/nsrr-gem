@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "colorize"
 require "nsrr/models/all"
 require "nsrr/helpers/authorization"
+require "nsrr/helpers/color"
 
 module Nsrr
   module Commands
@@ -28,22 +28,22 @@ module Nsrr
       # Run with Authorization
       def run
         if @dataset_slug.nil?
-          puts "Please specify a dataset: " + "nsrr download DATASET".colorize(:white)
+          puts "Please specify a dataset: " + "nsrr download DATASET".white
           puts "Read more on the download command here:"
-          puts "  " + "https://github.com/nsrr/nsrr-gem".colorize(:blue).on_white.underline
+          puts "  " + "https://github.com/nsrr/nsrr-gem".bg_gray.blue.underline
         else
           @token = Nsrr::Helpers::Authorization.get_token(@token) if @token.to_s == ""
           @dataset = Dataset.find(@dataset_slug, @token)
           if @dataset
             @dataset.download(@full_path, depth: @depth, method: @file_comparison)
           else
-            puts "\nThe dataset " + @dataset_slug.to_s.colorize(:white) + " was not found."
+            puts "\nThe dataset " + @dataset_slug.to_s.white + " was not found."
             (datasets, _status) = Nsrr::Helpers::JsonRequest.get("#{Nsrr::WEBSITE}/datasets.json", auth_token: @token)
-            puts "Did you mean one of: #{datasets.collect { |d| d["slug"].colorize(:white)}.sort.join(", ") }" if datasets && datasets.size > 0
+            puts "Did you mean one of: #{datasets.collect { |d| d["slug"].white }.sort.join(", ") }" if datasets && datasets.size > 0
           end
         end
       rescue Interrupt
-        puts "\nINTERRUPTED".colorize(:red)
+        puts "\nINTERRUPTED".red
       end
 
       private

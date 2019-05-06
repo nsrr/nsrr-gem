@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "digest/md5"
+require "nsrr/helpers/color"
 require "nsrr/helpers/constants"
 require "nsrr/helpers/download_request"
 
@@ -71,10 +72,10 @@ module Nsrr
           end
         end
         if download_request.error.to_s == "" and download_success
-          puts "  downloaded".colorize(:green) + " #{@file_name}"
+          puts "  downloaded".green + " #{@file_name}"
           download_request.file_size
         elsif download_request.error.to_s == ""
-          puts "      failed".colorize(:red) + " #{@file_name}"
+          puts "      failed".red + " #{@file_name}"
           if method == "fast"
             puts "             File size mismatch, expected: #{@file_size}"
             puts "                                   actual: #{@latest_file_size}"
@@ -85,14 +86,14 @@ module Nsrr
           ::File.delete(download_folder) if ::File.exist?(download_folder)
           "fail"
         else
-          puts "      failed".colorize(:red) + " #{@file_name}"
+          puts "      failed".red + " #{@file_name}"
           puts "             #{download_request.error}"
           "fail"
         end
       end
 
       def skip
-        puts "   identical".colorize(:light_blue) + " #{file_name}"
+        puts "   identical".blue + " #{file_name}"
         "skip"
       end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "colorize"
+require "nsrr/helpers/color"
 require "nsrr/helpers/json_request"
 
 module Nsrr
@@ -20,12 +20,12 @@ module Nsrr
         (json, _status) = Nsrr::Helpers::JsonRequest.get("https://rubygems.org/api/v1/gems/nsrr.json")
         if json
           if json["version"] == Nsrr::VERSION::STRING
-            puts "The nsrr gem is " + "up-to-date".colorize(:green) + "!"
+            puts "The nsrr gem is " + "up-to-date".green + "!"
           else
             puts
             puts "A newer version (v#{json["version"]}) is available! Type the following command to update:"
             puts
-            puts "  gem install nsrr --no-document".colorize(:white)
+            puts "  gem install nsrr --no-document".white
             puts
           end
         else
