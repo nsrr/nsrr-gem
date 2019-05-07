@@ -1,4 +1,4 @@
-## 5.0.0
+## 5.0.0 (May 7, 2019)
 
 ### Enhancements
 - **General Changes**
