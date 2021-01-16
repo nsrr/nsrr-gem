@@ -17,8 +17,7 @@ module Nsrr
       attr_reader :url, :error, :file_size
 
       def initialize(url, download_folder)
-        escaped_url = URI.escape(url)
-        @url = URI.parse(escaped_url)
+        @url = URI.parse(url)
         @http = Net::HTTP.new(@url.host, @url.port)
         if @url.scheme == "https"
           @http.use_ssl = true
@@ -26,8 +25,6 @@ module Nsrr
         end
         @download_folder = download_folder
         @file_size = 0
-      rescue
-        @error = "Invalid Token"
       end
 
       # Writes file segments to disk immediately instead of storing in memory

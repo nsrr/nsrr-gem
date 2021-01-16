@@ -1,5 +1,9 @@
 ## 6.0.0
 
+### Enhancements
+- **General Changes**
+  - Added compatibility for Ruby 3.0.0
+
 ## 5.0.0 (May 7, 2019)
 
 ### Enhancements

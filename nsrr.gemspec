@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.description   = "The official ruby gem to download files and datasets from the [NSRR](https://sleepdata.org)"
   spec.homepage      = "https://github.com/nsrr/nsrr-gem"
 
-  spec.required_ruby_version = ">= 2.4.6"
+  spec.required_ruby_version = ">= 2.7.2"
   spec.required_rubygems_version = ">= 2.6.3"
 
   spec.license       = "MIT"
