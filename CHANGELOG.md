@@ -1,4 +1,4 @@
-## 6.0.0
+## 6.0.0 (January 16, 2021)
 
 ### Enhancements
 - **General Changes**
