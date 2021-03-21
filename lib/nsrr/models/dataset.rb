@@ -69,6 +69,7 @@ module Nsrr
 
         begin
           puts "           File Check: " + options[:method].to_s.white
+          puts "           File Regex: " + options[:file].inspect.white
           puts "                Depth: " + options[:depth].to_s.white
           puts ""
           if @download_token.nil?
@@ -100,6 +101,12 @@ module Nsrr
         create_folder_for_path(full_path)
 
         files(full_path).select(&:is_file).each do |file|
+          unless file.file_name.match?(options[:file])
+            puts "     skipped".blue + " #{file.file_name}"
+            @files_skipped += 1
+            next
+          end
+
           current_folder = ::File.join(slug.to_s, file.folder.to_s)
           result = file.download(options[:method], current_folder, @download_token)
           case result
