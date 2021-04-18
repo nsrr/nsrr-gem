@@ -1,4 +1,4 @@
-## 7.0.0
+## 7.0.0 (April 18, 2021)
 
 ### Enhancements
 - **General Changes**
