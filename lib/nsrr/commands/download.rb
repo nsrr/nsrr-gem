@@ -21,6 +21,7 @@ module Nsrr
         (@token, argv) = parse_parameter_with_value(argv, ["token"], "")
         (@file_comparison, argv) = parse_parameter(argv, ["fast", "fresh", "md5"], "md5")
         (@depth, argv) = parse_parameter(argv, ["shallow", "recursive"], "recursive")
+        (@file, argv) = parse_parameter_with_value(argv, ["file"], "")
         @dataset_slug = argv[1].to_s.split("/").first
         @full_path = (argv[1].to_s.split("/")[1..-1] || []).join("/")
       end
@@ -35,7 +36,7 @@ module Nsrr
           @token = Nsrr::Helpers::Authorization.get_token(@token) if @token.to_s == ""
           @dataset = Dataset.find(@dataset_slug, @token)
           if @dataset
-            @dataset.download(@full_path, depth: @depth, method: @file_comparison)
+            @dataset.download(@full_path, depth: @depth, method: @file_comparison, file: Regexp.new(@file))
           else
             puts "\nThe dataset " + @dataset_slug.white + " was not found."
             datasets = all_datasets
@@ -80,7 +81,7 @@ module Nsrr
         result = default
         options.each do |option|
           argv.each do |arg|
-            result = arg.gsub(/^--#{option}=/, "") if arg =~ /^--#{option}=\w/
+            result = arg.gsub(/^--#{option}=/, "") if arg =~ /^--#{option}=[^\s]/
           end
         end
         [result, argv]
