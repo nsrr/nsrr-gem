@@ -1,5 +1,10 @@
 ## 7.0.0
 
+### Enhancements
+- **General Changes**
+  - Added `--file` option to specify a regular expression to match a file name,
+    (by @k0kubun)
+
 ## 6.0.0 (January 16, 2021)
 
 ### Enhancements

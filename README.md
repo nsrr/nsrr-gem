@@ -65,6 +65,26 @@ You can combine the file check flag with the folder depth flag as well.
 nsrr download shhs/datasets --shallow --fast
 ```
 
+You can specify a regular expression to filter files that are downloaded.
+
+```console
+nsrr download nchsdb/health_data --file="^PROCEDURE.*\.csv$"
+```
+
+```console
+      create nchsdb/health_data/
+     skipped DEMOGRAPHIC.csv
+     skipped DIAGNOSIS.csv
+     skipped ENCOUNTER.csv
+     skipped MEASUREMENT.csv
+     skipped MEDICATION.csv
+  downloaded PROCEDURE.csv
+  downloaded PROCEDURE_SURG_HX.csv
+     skipped SLEEP_ENC_ID.csv
+     skipped SLEEP_STUDY.csv
+     skipped Sleep_Study_Data_File_Format.pdf
+```
+
 ### Open the console and download entire datasets
 
 ```console
