@@ -17,7 +17,7 @@ module Nsrr
       attr_reader :url, :error, :file_size
 
       def initialize(url, download_folder)
-        @url = URI.parse(url)
+        @url = URI.parse(url.gsub(/\s/, "%20"))
         @http = Net::HTTP.new(@url.host, @url.port)
         if @url.scheme == "https"
           @http.use_ssl = true

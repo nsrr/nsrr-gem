@@ -1,5 +1,9 @@
 ## 8.0.0
 
+### Bug Fix
+- Fixed a bug that prevented folders and files with spaces in their paths from
+  being downloaded
+
 ## 7.0.0 (April 18, 2021)
 
 ### Enhancements
