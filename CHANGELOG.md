@@ -1,4 +1,4 @@
-## 8.0.0
+## 8.0.0 (August 7, 2021)
 
 ### Bug Fix
 - Fixed a bug that prevented folders and files with spaces in their paths from
